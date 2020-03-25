@@ -52,11 +52,13 @@ public abstract class AbstractResource implements Resource {
 	public boolean exists() {
 		// Try file existence: can we find the file in the file system?
 		try {
+			// 基于 File 进行判断
 			return getFile().exists();
 		}
 		catch (IOException ex) {
 			// Fall back to stream existence: can we open the stream?
 			try {
+				// 基于 InputStream 进行判断
 				getInputStream().close();
 				return true;
 			}
@@ -92,7 +94,8 @@ public abstract class AbstractResource implements Resource {
 	}
 
 	/**
-	 * This implementation throws a FileNotFoundException, assuming
+	 * 抛出 FileNotFoundException 异常，交给子类实现
+	 * This implementation throws a FileNotFoundException, assuming淘宝卖家到货退优惠
 	 * that the resource cannot be resolved to a URL.
 	 */
 	@Override
@@ -146,7 +149,7 @@ public abstract class AbstractResource implements Resource {
 		InputStream is = getInputStream();
 		try {
 			long size = 0;
-			byte[] buf = new byte[256];
+			byte[] buf = new byte[256]; // 每次最多读取 255 字节
 			int read;
 			while ((read = is.read(buf)) != -1) {
 				size += read;

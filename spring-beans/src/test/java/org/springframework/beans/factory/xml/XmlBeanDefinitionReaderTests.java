@@ -19,15 +19,14 @@ package org.springframework.beans.factory.xml;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.springframework.core.io.*;
+import org.springframework.util.StringUtils;
 import org.xml.sax.InputSource;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.SimpleBeanDefinitionRegistry;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.tests.sample.beans.TestBean;
 import org.springframework.util.ObjectUtils;
 
@@ -61,6 +60,25 @@ public class XmlBeanDefinitionReaderTests {
 		reader.setValidationMode(XmlBeanDefinitionReader.VALIDATION_DTD);
 		reader.loadBeanDefinitions(resource);
 		testBeanDefinitions(registry);
+	}
+
+	@Test
+	public void withCleanPath() {
+		String s = StringUtils.cleanPath("../Admin\\.gradle\\caches");
+		System.out.println(s);
+		ResourceLoader resourceLoader = new DefaultResourceLoader();
+
+		Resource fileResource1 = resourceLoader.getResource("D:/Users/chenming673/Documents/spark.txt");
+		System.out.println("fileResource1 is FileSystemResource:" + (fileResource1 instanceof ClassPathResource));
+
+		Resource fileResource2 = resourceLoader.getResource("/Users/chenming673/Documents/spark.txt");
+		System.out.println("fileResource2 is ClassPathResource:" + (fileResource2 instanceof ClassPathResource));
+
+		Resource urlResource1 = resourceLoader.getResource("file:/Users/chenming673/Documents/spark.txt");
+		System.out.println("urlResource1 is UrlResource:" + (urlResource1 instanceof UrlResource));
+
+		Resource urlResource2 = resourceLoader.getResource("http://www.baidu.com");
+		System.out.println("urlResource1 is urlResource:" + (urlResource2 instanceof  UrlResource));
 	}
 
 	@Test

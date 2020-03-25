@@ -392,6 +392,7 @@ public abstract class StringUtils {
 	}
 
 	/**
+	 * 替换 inString 中的 oldPattern 为 newPattern
 	 * Replace all occurrences of a substring within a string with another string.
 	 * @param inString {@code String} to examine
 	 * @param oldPattern {@code String} to replace
@@ -635,6 +636,7 @@ public abstract class StringUtils {
 	}
 
 	/**
+	 * 将传入的路径规范化，比如将windows的路径分隔符“\\”替换为标准的“/“，如果路径中含有.(当前文件夹)，或者..(上层文件夹)，则计算出其真实路径
 	 * Normalize the path by suppressing sequences like "path/.." and
 	 * inner simple dots.
 	 * <p>The result is convenient for path comparison. For other uses,

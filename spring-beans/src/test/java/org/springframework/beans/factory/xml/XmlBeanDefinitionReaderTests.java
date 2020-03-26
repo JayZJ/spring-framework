@@ -17,6 +17,7 @@
 package org.springframework.beans.factory.xml;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 import org.junit.Test;
 import org.springframework.core.io.*;
@@ -79,6 +80,7 @@ public class XmlBeanDefinitionReaderTests {
 
 		Resource urlResource2 = resourceLoader.getResource("http://www.baidu.com");
 		System.out.println("urlResource1 is urlResource:" + (urlResource2 instanceof  UrlResource));
+		System.out.println(UUID.randomUUID().toString());
 	}
 
 	@Test

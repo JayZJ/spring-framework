@@ -24,11 +24,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
 import org.springframework.beans.factory.parsing.AliasDefinition;
 import org.springframework.beans.factory.parsing.ComponentDefinition;
 import org.springframework.beans.factory.parsing.DefaultsDefinition;
 import org.springframework.beans.factory.parsing.ImportDefinition;
 import org.springframework.beans.factory.parsing.ReaderEventListener;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 
 /**
  * @author Rob Harrop
@@ -90,6 +95,16 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 
 	public List<ImportDefinition> getImports() {
 		return Collections.unmodifiableList(this.imports);
+	}
+
+	@Test
+	public void ioc() {
+		Resource resource = new FileSystemResource("C:\\Users\\Admin\\IdeaProjects\\codes\\spring-framework\\spring-context\\src\\test\\resources\\org\\springframework\\context\\support\\ClassPathXmlApplicationContextTests-resourceImport.xml");
+		DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+		XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+		xmlBeanDefinitionReader.loadBeanDefinitions(resource);
+		Object yourMessageSource = defaultListableBeanFactory.getBean("maybeOne");
+		System.out.println(yourMessageSource);
 	}
 
 }

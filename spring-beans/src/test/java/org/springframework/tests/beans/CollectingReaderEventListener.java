@@ -105,6 +105,7 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 		xmlBeanDefinitionReader.loadBeanDefinitions(resource);
 		Object yourMessageSource = defaultListableBeanFactory.getBean("maybeOne");
 		System.out.println(yourMessageSource);
+		System.out.println(!(1 == 3) || (2 == 3));
 	}
 
 }

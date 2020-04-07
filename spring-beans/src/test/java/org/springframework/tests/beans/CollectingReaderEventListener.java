@@ -16,13 +16,7 @@
 
 package org.springframework.tests.beans;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.junit.Test;
 import org.springframework.beans.factory.parsing.AliasDefinition;
@@ -106,6 +100,9 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 		Object yourMessageSource = defaultListableBeanFactory.getBean("maybeOne");
 		System.out.println(yourMessageSource);
 		System.out.println(!(1 == 3) || (2 == 3));
+		Set<Integer> set = new HashSet<>();
+		System.out.println(set.add(1));
+		System.out.println(set.add(1));
 	}
 
 }

@@ -502,6 +502,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Return whether this bean is "abstract", i.e. not meant to be instantiated
 	 * itself but rather just serving as parent for concrete child bean definitions.
+	 *
+	 * 返回此bean是否为“抽象”，即不打算实例化
+	 * 本身，而只是充当具体子bean定义的父对象。
 	 */
 	@Override
 	public boolean isAbstract() {

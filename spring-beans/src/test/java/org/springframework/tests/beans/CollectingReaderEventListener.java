@@ -103,6 +103,15 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 		Set<Integer> set = new HashSet<>();
 		System.out.println(set.add(1));
 		System.out.println(set.add(1));
+		Map<String, Integer> map = new HashMap<>();
+		map.put("aaa", 1);
+		map.forEach(this::ttt);
+		System.out.println(map.remove("aaa"));
+	}
+
+	void ttt(String a, Integer b) {
+		System.out.println(a);
+		System.out.println(b);
 	}
 
 }

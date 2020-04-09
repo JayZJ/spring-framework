@@ -613,6 +613,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 			// 提前将创建的 bean 实例加入到 singletonFactories 中
 			// 这里是为了后期避免循环依赖
+			// 处理循环依赖的关键：singletonFactories
 			addSingletonFactory(beanName, () -> getEarlyBeanReference(beanName, mbd, bean));
 		}
 
@@ -639,6 +640,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// 循环依赖处理
 		if (earlySingletonExposure) {
 			// 获取 earlySingletonReference
+			// 处理循环依赖的关键：singletonFactories
 			Object earlySingletonReference = getSingleton(beanName, false);
 			// 只有在存在循环依赖的情况下，earlySingletonReference 才不会为空
 			if (earlySingletonReference != null) {

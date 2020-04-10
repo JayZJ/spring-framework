@@ -28,6 +28,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
@@ -130,6 +131,26 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 		MyApplicationAware myApplicationAware = (MyApplicationAware) applicationContext.getBean("myApplicationAware");
 		// 异常原因，在激活 Aware 接口时只检测了 BeanNameAware、BeanClassLoaderAware、BeanFactoryAware 三个 Aware 接口
 		myApplicationAware.display();
+
+	}
+
+	@Test
+	public void iocBeanPostProcessor() {
+		// 1.BeanPostProcessor 的作用域是容器级别的，它只和所在的容器相关 ，当 BeanPostProcessor 完成注册后，它会应用于所有跟它在同一个容器内的 bean 。
+		// 2.BeanFactory 和 ApplicationContext 对 BeanPostProcessor 的处理不同，ApplicationContext 会自动检测所有实现了 BeanPostProcessor 接口的 bean，
+		// 并完成注册，但是使用 BeanFactory 容器时则需要手动调用 AbstractBeanFactory#addBeanPostProcessor(BeanPostProcessor beanPostProcessor) 方法来完成注册
+		// 3.ApplicationContext 的 BeanPostProcessor 支持 Ordered，而 BeanFactory 的 BeanPostProcessor 是不支持的，
+		// 原因在于ApplicationContext 会对 BeanPostProcessor 进行 Ordered 检测并完成排序，而 BeanFactory 中的 BeanPostProcessor 只跟注册的顺序有关
+		ClassPathResource resource = new ClassPathResource("org/springframework/beans/factory/ClassPathXmlApplicationContextTests-resourceImport.xml");
+		DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+		XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
+		reader.loadBeanDefinitions(resource);
+		// 显示调用 #addBeanPostProcessor(BeanPostProcessor beanPostProcessor) 使 postProcessBeforeInitialization() 和 postProcessAfterInitialization() 方法执行
+//		BeanPostProcessorTest beanPostProcessorTest1 = new BeanPostProcessorTest();
+//		factory.addBeanPostProcessor(beanPostProcessorTest1);
+		// 异常原因，在激活 Aware 接口时只检测了 BeanNameAware、BeanClassLoaderAware、BeanFactoryAware 三个 Aware 接口
+		BeanPostProcessorTest beanPostProcessorTest = (BeanPostProcessorTest)factory.getBean("beanPostProcessorTest");
+		beanPostProcessorTest.display();
 
 	}
 }

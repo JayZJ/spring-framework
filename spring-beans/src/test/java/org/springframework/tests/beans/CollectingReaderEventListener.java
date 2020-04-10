@@ -26,6 +26,8 @@ import org.springframework.beans.factory.parsing.ImportDefinition;
 import org.springframework.beans.factory.parsing.ReaderEventListener;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
@@ -98,6 +100,12 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 		XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
 		xmlBeanDefinitionReader.loadBeanDefinitions(resource);
 		Object yourMessageSource = defaultListableBeanFactory.getBean("maybeOne");
+		MyApplicationAware myApplicationAware = (MyApplicationAware) defaultListableBeanFactory.getBean("myApplicationAware");
+		// 异常原因，在激活 Aware 接口时只检测了 BeanNameAware、BeanClassLoaderAware、BeanFactoryAware 三个 Aware 接口
+		myApplicationAware.display();
+
+
+
 		System.out.println(yourMessageSource);
 		System.out.println(!(1 == 3) || (2 == 3));
 		Set<Integer> set = new HashSet<>();
@@ -114,4 +122,14 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 		System.out.println(b);
 	}
 
+	@Test
+	public void iocApplicationContextAware() {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("org/springframework/beans/factory/ClassPathXmlApplicationContextTests-resourceImport.xml");
+
+		Object yourMessageSource = applicationContext.getBean("maybeOne");
+		MyApplicationAware myApplicationAware = (MyApplicationAware) applicationContext.getBean("myApplicationAware");
+		// 异常原因，在激活 Aware 接口时只检测了 BeanNameAware、BeanClassLoaderAware、BeanFactoryAware 三个 Aware 接口
+		myApplicationAware.display();
+
+	}
 }

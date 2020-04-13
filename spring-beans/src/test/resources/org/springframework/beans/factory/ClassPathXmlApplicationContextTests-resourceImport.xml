@@ -21,4 +21,9 @@
 	<bean id="beanPostProcessorTest" name="beanPostProcessorTest" class="org.springframework.tests.beans.BeanPostProcessorTest">
 	</bean>
 
+	<bean id="lifeCycle" class="org.springframework.tests.beans.LifeCycleBean"
+		  init-method="initMethod" destroy-method="destroyMethdo">
+		<property name="test" value="test"/>
+	</bean>
+
 </beans>

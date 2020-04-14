@@ -209,7 +209,10 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess, Properties props)
 			throws BeansException {
 
+		// <1> 创建 StringValueResolver 对象。 PlaceholderResolver 是一个用于解析字符串中包含占位符的替换值的策略接口，
+		// 该接口有一个 #resolvePlaceholder(String strVa) 方法，用于返回占位符的替换值。
 		StringValueResolver valueResolver = new PlaceholderResolvingStringValueResolver(props);
+		// 处理
 		doProcessProperties(beanFactoryToProcess, valueResolver);
 	}
 
@@ -229,10 +232,13 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 		@Override
 		@Nullable
 		public String resolveStringValue(String strVal) throws BeansException {
+			// 解析真值
 			String resolved = this.helper.replacePlaceholders(strVal, this.resolver);
+			// trim
 			if (trimValues) {
 				resolved = resolved.trim();
 			}
+			// 返回真值
 			return (resolved.equals(nullValue) ? null : resolved);
 		}
 	}

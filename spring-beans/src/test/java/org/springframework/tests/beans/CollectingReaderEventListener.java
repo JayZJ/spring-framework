@@ -168,4 +168,10 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 // 关闭容器
 		factory.destroySingletons();
 	}
+
+	@Test
+	public void iocPropertyPlaceHolder() {
+		String dev = System.getProperty("spring.profiles.active", "dev");
+		System.out.println(dev);
+	}
 }

@@ -26,7 +26,7 @@ import org.springframework.core.convert.TypeDescriptor;
  * <p>Often used to selectively match custom conversion logic based on the presence of a
  * field or class-level characteristic, such as an annotation or method. For example, when
  * converting from a String field to a Date field, an implementation might return
- * {@code true} if the target field has also been annotated with {@code @DateTimeFormat}.
+ * {@code true} if the target ConverterFactoryfield has also been annotated with {@code @DateTimeFormat}.
  *
  * <p>As another example, when converting from a String field to an {@code Account} field,
  * an implementation might return {@code true} if the target Account class defines a
@@ -40,6 +40,7 @@ import org.springframework.core.convert.TypeDescriptor;
  * @see ConverterFactory
  * @see ConditionalGenericConverter
  */
+// 接口用于表示有条件的类型转换，通过转入的sourceType 与 targetType 判断转换能否匹配，只有可匹配的转换才会调用convert 方法进行转换
 public interface ConditionalConverter {
 
 	/**

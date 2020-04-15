@@ -50,6 +50,7 @@ import org.springframework.util.ObjectUtils;
  * @see ConversionService#convert(Object, TypeDescriptor, TypeDescriptor)
  */
 @SuppressWarnings("serial")
+// 提供有关发生转换的源位置和目标位置的附加上下文，通常是对象字段或属性位置。
 public class TypeDescriptor implements Serializable {
 
 	private static final Annotation[] EMPTY_ANNOTATION_ARRAY = new Annotation[0];

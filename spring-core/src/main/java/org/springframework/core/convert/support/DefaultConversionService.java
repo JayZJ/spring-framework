@@ -38,6 +38,7 @@ import org.springframework.lang.Nullable;
  * @author Stephane Nicoll
  * @since 3.1
  */
+// ConversionService 接口的默认实现，适用于大部分条件下的转换工作
 public class DefaultConversionService extends GenericConversionService {
 
 	@Nullable

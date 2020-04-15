@@ -124,6 +124,7 @@ class TypeConverterDelegate {
 		ConversionService conversionService = this.propertyEditorRegistry.getConversionService();
 		if (editor == null && conversionService != null && newValue != null && typeDescriptor != null) {
 			TypeDescriptor sourceTypeDesc = TypeDescriptor.forObject(newValue);
+			// 如果没有自定义的编辑器则使用 ConversionService
 			if (conversionService.canConvert(sourceTypeDesc, typeDescriptor)) {
 				try {
 					return (T) conversionService.convert(newValue, sourceTypeDesc, typeDescriptor);

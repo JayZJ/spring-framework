@@ -46,6 +46,11 @@ import java.beans.PropertyDescriptor;
  * @see org.springframework.validation.BeanPropertyBindingResult
  * @see org.springframework.validation.DataBinder#initBeanPropertyAccess()
  */
+// BeanWrapper 继承的三个接口，那么它就具有三重身份：
+// 属性编辑器
+// 属性编辑器注册表
+// 类型转换器
+// 还集成了 Spring 的 ConversionService 类型转换体系
 public interface BeanWrapper extends ConfigurablePropertyAccessor {
 
 	/**
@@ -64,11 +69,13 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	/**
 	 * Return the bean instance wrapped by this object.
 	 */
+	// 获取包装对象的实例
 	Object getWrappedInstance();
 
 	/**
 	 * Return the type of the wrapped bean instance.
 	 */
+	// 获取包装对象的类型
 	Class<?> getWrappedClass();
 
 	/**
@@ -76,6 +83,7 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	 * (as determined by standard JavaBeans introspection).
 	 * @return the PropertyDescriptors for the wrapped object
 	 */
+	// 获取包装对象所有属性的 PropertyDescriptor 就是这个属性的上下文
 	PropertyDescriptor[] getPropertyDescriptors();
 
 	/**
@@ -86,6 +94,7 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	 * @return the property descriptor for the specified property
 	 * @throws InvalidPropertyException if there is no such property
 	 */
+	// 获取包装对象指定属性的上下文
 	PropertyDescriptor getPropertyDescriptor(String propertyName) throws InvalidPropertyException;
 
 }

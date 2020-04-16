@@ -32,6 +32,7 @@ import org.springframework.lang.Nullable;
  * @see PropertyAccessorFactory#forBeanPropertyAccess
  * @see PropertyAccessorFactory#forDirectFieldAccess
  */
+// 可以访问属性的通用型接口（例如对象的 bean 属性或者对象中的字段）
 public interface PropertyAccessor {
 
 	/**
@@ -78,6 +79,7 @@ public interface PropertyAccessor {
 	 * (may be a nested path and/or an indexed/mapped property)
 	 * @return whether the property is readable
 	 */
+	// 判断指定 property 是否可读，是否包含 getter 方法。
 	boolean isReadableProperty(String propertyName);
 
 	/**
@@ -87,6 +89,7 @@ public interface PropertyAccessor {
 	 * (may be a nested path and/or an indexed/mapped property)
 	 * @return whether the property is writable
 	 */
+	// 判断指定 property 是否可写,是否包含 setter 方法。
 	boolean isWritableProperty(String propertyName);
 
 	/**
@@ -100,6 +103,7 @@ public interface PropertyAccessor {
 	 * @throws PropertyAccessException if the property was valid but the
 	 * accessor method failed
 	 */
+	// 获取指定 propertyName 的类型
 	@Nullable
 	Class<?> getPropertyType(String propertyName) throws BeansException;
 
@@ -126,6 +130,7 @@ public interface PropertyAccessor {
 	 * @throws PropertyAccessException if the property was valid but the
 	 * accessor method failed
 	 */
+	// 设置指定 propertyValue 。
 	@Nullable
 	Object getPropertyValue(String propertyName) throws BeansException;
 

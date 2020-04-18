@@ -52,6 +52,7 @@ import org.springframework.util.StringUtils;
  * @see ConfigurableEnvironment
  * @see StandardEnvironment
  */
+// Environment 的基础实现。允许通过设置 ACTIVE_PROFILES_PROPERTY_NAME 和 DEFAULT_PROFILES_PROPERTY_NAME 属性指定活动和默认配置文件。
 public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 
 	/**
@@ -234,9 +235,12 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	 */
 	protected Set<String> doGetActiveProfiles() {
 		synchronized (this.activeProfiles) {
+			// 如果 activeProfiles 为空，则进行初始化
 			if (this.activeProfiles.isEmpty()) {
+				// 获得 ACTIVE_PROFILES_PROPERTY_NAME 对应的 profiles 属性值
 				String profiles = getProperty(ACTIVE_PROFILES_PROPERTY_NAME);
 				if (StringUtils.hasText(profiles)) {
+					// 设置到 activeProfiles 中
 					setActiveProfiles(StringUtils.commaDelimitedListToStringArray(
 							StringUtils.trimAllWhitespace(profiles)));
 				}
@@ -252,8 +256,11 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 			logger.debug("Activating profiles " + Arrays.asList(profiles));
 		}
 		synchronized (this.activeProfiles) {
+			// 清空 activeProfiles
 			this.activeProfiles.clear();
+			// 遍历 profiles 数组，添加到 activeProfiles 中
 			for (String profile : profiles) {
+				// 校验
 				validateProfile(profile);
 				this.activeProfiles.add(profile);
 			}

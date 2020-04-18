@@ -171,6 +171,7 @@ public class CollectingReaderEventListener implements ReaderEventListener {
 
 	@Test
 	public void iocPropertyPlaceHolder() {
+		System.setProperty("spring.profiles.active", "ttt");
 		String dev = System.getProperty("spring.profiles.active", "dev");
 		System.out.println(dev);
 	}

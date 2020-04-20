@@ -47,6 +47,7 @@ package org.springframework.context;
  * @see org.springframework.jms.listener.AbstractMessageListenerContainer
  * @see org.springframework.scheduling.quartz.SchedulerFactoryBean
  */
+// Lifecycle ，一个用于管理声明周期的接口
 public interface Lifecycle {
 
 	/**

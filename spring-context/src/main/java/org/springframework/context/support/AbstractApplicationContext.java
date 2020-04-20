@@ -325,6 +325,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * a custom {@link ConfigurableEnvironment} implementation.
 	 */
 	protected ConfigurableEnvironment createEnvironment() {
+		// StandardEnvironment 是一个适用于非 WEB 应用的 Environment
 		return new StandardEnvironment();
 	}
 
@@ -976,9 +977,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	@Override
 	public void close() {
 		synchronized (this.startupShutdownMonitor) {
+			// 关闭 ApplicationContext 销毁所有 Bean
 			doClose();
 			// If we registered a JVM shutdown hook, we don't need it anymore now:
 			// We've already explicitly closed the context.
+			// 如果注册有 JVM shutdown hook ，同样要将其移除
 			if (this.shutdownHook != null) {
 				try {
 					Runtime.getRuntime().removeShutdownHook(this.shutdownHook);
@@ -1295,6 +1298,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 	@Override
 	public String getMessage(String code, @Nullable Object[] args, @Nullable String defaultMessage, Locale locale) {
+		// 委托给 messageSource 实现
 		return getMessageSource().getMessage(code, args, defaultMessage, locale);
 	}
 

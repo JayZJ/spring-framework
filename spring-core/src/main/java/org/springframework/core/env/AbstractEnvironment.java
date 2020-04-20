@@ -263,6 +263,7 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 				// 校验
 				validateProfile(profile);
 				this.activeProfiles.add(profile);
+
 			}
 		}
 	}
